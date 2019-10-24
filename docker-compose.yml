@@ -1,0 +1,23 @@
+version: "2"
+services:
+    www:
+        build: ./.docker
+        ports: 
+            - "8001:80"
+        volumes:
+            - ./www:/var/www/html/
+        links:
+            - db
+        networks:
+            - default
+    db:
+        image: mysql:5.7.13
+        ports: 
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ovo
+            MYSQL_USER: ovo
+            MYSQL_PASSWORD: ovo
+            MYSQL_ROOT_PASSWORD: ovo
+        volumes:
+            - ./mysql-dump:/docker-entrypoint-initdb.d
